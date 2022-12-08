@@ -13,10 +13,6 @@
         "allowedRoles": ["authenticated"]
       },
       {
-        "route": "/login",
-        "rewrite": "/.auth/login/aad"
-      },
-      {
         "route": "/.auth/login/twitter",
         "statusCode": 404
       },
@@ -28,5 +24,17 @@
         "route": "/logout",
         "redirect": "/.auth/logout"
       }
-    ]
+    ],
+    "responseOverrides": {
+        "401": {
+          "redirect": "/.auth/login/aad",
+          "statusCode": 302
+        },
+        "403": {
+          "rewrite": "/custom-forbidden-page.html"
+        },
+        "404": {
+          "rewrite": "/404.html"
+        }
+    }
   }
