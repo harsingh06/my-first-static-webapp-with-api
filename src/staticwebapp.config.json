@@ -36,7 +36,7 @@
     },
     {
       "route": "/login",
-      "redirect": ".auth/login/aad?post_login_redirect_uri=search.html"
+      "redirect": ".auth/login/aad"
     },
     {
       "route": "/logout",
