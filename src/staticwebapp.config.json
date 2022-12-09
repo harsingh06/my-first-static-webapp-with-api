@@ -1,49 +1,76 @@
 {
-    "trailingSlash": "auto",
-    "routes": [
-        {
-        "route": "/images/*",
-        "headers": {
-            "cache-control": "must-revalidate, max-age=15770000"
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/cc8c4a5e-c4b0-4892-8246-e64875e62bf0/v2.0",
+          "clientIdSettingName": "579a7b5b-2e1b-4600-bfa5-fbbcefee95f6",
+          "clientSecretSettingName": "JRf8Q~MVnxeoZ7yf4~aJsZdULM5ap8ypqVMUwcQb"
         }
-        },
-      {
-        "route": "/search.html",
-        "methods": ["GET"],
-        "allowedRoles": ["authenticated"]
-      },
-      {
-        "route": "/api/*",
-        "methods": ["GET", "POST"],
-        "allowedRoles": ["authenticated"]
-      },
-      {
-        "route": "/.auth/login/twitter",
-        "statusCode": 404
-      },
-      {
-        "route": "/.auth/login/github",
-        "statusCode": 404
-      },
-      {
-        "route": "/login",
-        "redirect": ".auth/login/aad?post_login_redirect_uri=search.html"
-      },
-      {
-        "route": "/logout",
-        "redirect": "/.auth/logout?post_logout_redirect_uri=index.html"
       }
-    ],
-    "responseOverrides": {
-        "401": {
-          "redirect": "/index.html",
-          "statusCode": 302
-        },
-        "403": {
-          "rewrite": "/custom-forbidden-page.html"
-        },
-        "404": {
-          "rewrite": "/404.html"
-        }
+    }
+  },
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/images/*",
+      "headers": {
+        "cache-control": "must-revalidate, max-age=15770000"
+      }
+    },
+    {
+      "route": "/search.html",
+      "methods": [
+        "GET"
+      ],
+      "allowedRoles": [
+        "authenticated"
+      ]
+    },
+    {
+      "route": "/api/*",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "allowedRoles": [
+        "authenticated"
+      ]
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
+      "route": "/login",
+      "redirect": ".auth/login/aad?post_login_redirect_uri=search.html"
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout?post_logout_redirect_uri=index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/images/*",
+      "/css/*"
+    ]
+  },
+  "responseOverrides": {
+    "401": {
+      "redirect": "/index.html",
+      "statusCode": 302
+    },
+    "403": {
+      "rewrite": "/custom-forbidden-page.html"
+    },
+    "404": {
+      "rewrite": "/404.html"
     }
   }
+}
